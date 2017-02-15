@@ -1,0 +1,38 @@
+.right
+{
+	float: right;
+}
+#chattitle
+{
+	margin-left: 50px;
+	
+}
+
+#chatwindow
+{
+	height: 500px;
+	width: 500px;
+	overflow: auto;
+	border: 1px solid black;
+	clear: both;
+	margin-left: 50px;
+
+}
+#chatform
+{
+	margin-left: 50px;
+	margin-top:20px;
+}
+#chatmenu
+{
+
+	height: 650px;
+	width: 600px;
+	border: 10px solid black;
+	margin: auto;
+
+}
+.name
+{
+	font-size: 25px;
+}
