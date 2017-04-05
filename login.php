@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	session_start();
 	$username = "";$password ="" ; $msg = "";
 	if (isset($_POST["username"])) 
@@ -22,7 +22,7 @@
 		}
 		else
 		{
-			$msg .= "帳號密碼輸入錯誤" ;
+			$msg .= "帳號密碼輸入有錯誤" ;
 		}
 
 	}
