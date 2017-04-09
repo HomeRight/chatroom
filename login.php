@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	session_start();
 	$username = "";$password ="" ; $msg = "";
 	if (isset($_POST["username"])) 
@@ -22,7 +22,7 @@
 		}
 		else
 		{
-			$msg .= "帳號密碼輸入有錯誤" ;
+			$msg .= "帳號密碼輸入錯誤" ;
 		}
 
 	}
@@ -87,6 +87,82 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	function Vaildate()
+	{
+		var IdValue = document.forms["form"]["username"].value;
+		var PasswordValue = document.forms["form"]["password"].value;
+
+		var RegisterIdVaule =document.forms["registerForm"]["newusername"].value;
+		var RegisterPasswordVaule =document.forms["registerForm"]["newpassword"].value;
+
+
+		//登入驗證
+		IsEmpty(IdValue);
+		IsNotChiness(IdValue);
+		IsNotSpecialChar(IdValue);
+
+		IsEmpty(PasswordValue);
+		IsNotChiness(PasswordValue);
+		IsNotSpecialChar(PasswordValue);
+
+		//註冊驗證
+		IsEmpty(RegisterIdVaule);
+		IsNotChiness(RegisterIdVaule);
+		IsNotSpecialChar(RegisterIdVaule);
+
+		IsEmpty(RegisterPasswordVaule);
+		IsNotChiness(RegisterPasswordVaule);
+		IsNotSpecialChar(RegisterPasswordVaule);
+
+
+
+		
+	
+		return false;
+
+	}
+
+	//id不能為空值
+	function IsEmpty(InputValue)
+	{
+		if(InputValue=="")
+		{
+			alert("值不能為空");
+			return false ;
+		}
+	}
+	//id不能為中文
+	function IsNotChiness(InputValue)
+	{
+		for(var i=0;i<InputValue.length;i++)
+		{
+			if(InputValue.charCodeAt(i)>128)
+			{
+				alert('值不能為中文');
+				return false ;
+			}
+		}
+	}
+	//id不能為特殊字元
+	function IsNotSpecialChar(InputValue)
+	{
+		contain(InputValue,"!@#$%^&*()_+<,>.?/:;\"\'{}[]\"\'\\");
+
+		function contain(InputValue,str)
+		{
+			for(var i=0;i<str.length;i++)
+			{
+				if (InputValue.indexOf(str.charAt(i))>=0)
+				{
+					alert('不能為特殊字元');
+					break;
+					// alert(IdValue.indexOf(str.charAt(i)));
+				}
+			}
+		}
+	}
+	</script>
 </head>
 <body class="background">
 	<div class="login">
@@ -95,7 +171,7 @@
 		</div>
 		<!-- 登入介面 -->
 		<div class="loginForm">
-			<form role="form" class="form-horizontal" action="" method="post">
+			<form role="form" class="form-horizontal" action="" method="post" onsubmit="return Vaildate()" name="form">
 				<div class="form-group">
 					<label for="id">Id:</label>
 				    <input type="text" class="form-control" id="id" placeholder="UserId" name="username" value="<?php echo 
@@ -120,7 +196,7 @@
 					        <h4 class="modal-title">註冊新帳號</h4>
 					    </div>
 					    <div class="modal-body loginForm">
-					    	<form action="register.php" method="post" class="form-horizontal">
+					    	<form action="register.php" method="post" class="form-horizontal" name="registerForm" onsubmit="return Vaildate()">
 					    		<div class="form-group">
 									<label for="myRegisterId">Id:</label>
 								    <input type="text" class="form-control" id="myRegisterId" placeholder="UserId" name="newusername">
