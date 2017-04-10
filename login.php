@@ -11,7 +11,7 @@
 	}
 	if ($username!=""&&$password!="") 
 	{
-		$db = mysqli_connect("localhost","root","A12345678");
+		$db = mysqli_connect("localhost","root","");
 		mysqli_select_db($db,"alentest");
 		$sql = "SELECT * FROM login WHERE username ='$username' AND 
 				password = '$password'" ;
@@ -88,48 +88,87 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	function Vaildate()
+	function registerVaildate()
+	{
+		var RegisterIdVaule =document.forms["registerForm"]["newusername"].value;
+		var RegisterPasswordVaule =document.forms["registerForm"]["newpassword"].value;
+
+		//註冊驗證
+		// IsEmpty(RegisterIdVaule);
+		// IsNotChiness(RegisterIdVaule);
+		// IsNotSpecialChar(RegisterIdVaule);
+
+		// IsEmpty(RegisterPasswordVaule);
+		// IsNotChiness(RegisterPasswordVaule);
+		// IsNotSpecialChar(RegisterPasswordVaule);
+
+		if(!IsEmpty(RegisterIdVaule)) return false;
+		if(!IsNotChiness(RegisterIdVaule)) return false;
+		if(!IsNotSpecialChar(RegisterIdVaule)) return false;
+		
+		if(!IsEmpty(RegisterPasswordVaule)) return false;
+		if(!IsNotChiness(RegisterPasswordVaule)) return false;
+		if(!IsNotSpecialChar(RegisterPasswordVaule)) return false;
+	}
+	function LoginVaildate()
 	{
 		var IdValue = document.forms["form"]["username"].value;
 		var PasswordValue = document.forms["form"]["password"].value;
 
-		var RegisterIdVaule =document.forms["registerForm"]["newusername"].value;
-		var RegisterPasswordVaule =document.forms["registerForm"]["newpassword"].value;
-
-
-		//登入驗證
-		IsEmpty(IdValue);
-		IsNotChiness(IdValue);
-		IsNotSpecialChar(IdValue);
-
-		IsEmpty(PasswordValue);
-		IsNotChiness(PasswordValue);
-		IsNotSpecialChar(PasswordValue);
-
-		//註冊驗證
-		IsEmpty(RegisterIdVaule);
-		IsNotChiness(RegisterIdVaule);
-		IsNotSpecialChar(RegisterIdVaule);
-
-		IsEmpty(RegisterPasswordVaule);
-		IsNotChiness(RegisterPasswordVaule);
-		IsNotSpecialChar(RegisterPasswordVaule);
-
-
-
 		
+		//登入驗證
+
+		// IsEmpty(IdValue);
+		// IsNotChiness(IdValue);
+		// IsNotSpecialChar(IdValue);
+
+		// IsEmpty(PasswordValue);
+		// IsNotChiness(PasswordValue);
+		// IsNotSpecialChar(PasswordValue);
+
+		// console.log(typeof Boolean(IsEmpty(IdValue)));
+		// console.log(IsEmpty(IdValue));
+		// console.log(IsEmpty(IdValue));
+
+		// console.log(typeof Boolean(IsEmpty(PasswordValue)));
+		// console.log(IsEmpty(PasswordValue));
+		// console.log(IsEmpty(PasswordValue));
+
+		if(!IsEmpty(IdValue)) return false;
+		if(!IsNotChiness(IdValue)) return false;
+		if(!IsNotSpecialChar(IdValue)) return false;
+		
+		
+
+		if(!IsEmpty(PasswordValue)) return false;
+		if(!IsNotChiness(PasswordValue)) return false;
+		if(!IsNotSpecialChar(PasswordValue)) return false;
+
+		// console.log(typeof Boolean(IsNotSpecialChar(IdValue)));
+		// console.log(IsNotSpecialChar(IdValue));
+		// console.log(IsNotSpecialChar(IdValue));
+
+		// console.log(typeof Boolean(IsEmpty(PasswordValue)));
+		// console.log(IsEmpty(PasswordValue));
+		// console.log(IsEmpty(PasswordValue));
+
+		// return  false;
 	
-		return false;
+		
 
 	}
 
 	//id不能為空值
-	function IsEmpty(InputValue)
+	function  IsEmpty(InputValue)
 	{
 		if(InputValue=="")
 		{
 			alert("值不能為空");
 			return false ;
+		}
+		else
+		{
+			return true ;
 		}
 	}
 	//id不能為中文
@@ -142,24 +181,39 @@
 				alert('值不能為中文');
 				return false ;
 			}
+			else
+			{
+				return true ;
+			}
 		}
 	}
 	//id不能為特殊字元
 	function IsNotSpecialChar(InputValue)
 	{
-		contain(InputValue,"!@#$%^&*()_+<,>.?/:;\"\'{}[]\"\'\\");
-
+		var check = contain(InputValue,"@!#$%^&*()_+<,>.?/:;\"\'{}[]\\");
+		// console.log(check);
+		if(!check) 
+			return false;
+		else
+			return true ; 
 		function contain(InputValue,str)
 		{
+			// console.log(InputValue.indexOf(str.charAt(2)));
+			// console.log(str.charAt(2));
 			for(var i=0;i<str.length;i++)
 			{
 				if (InputValue.indexOf(str.charAt(i))>=0)
 				{
 					alert('不能為特殊字元');
+					// console.log(InputValue.indexOf(str.charAt(i)))
+					return false ;
 					break;
 					// alert(IdValue.indexOf(str.charAt(i)));
 				}
+
 			}
+			return true ;
+
 		}
 	}
 	</script>
@@ -171,7 +225,7 @@
 		</div>
 		<!-- 登入介面 -->
 		<div class="loginForm">
-			<form role="form" class="form-horizontal" action="" method="post" onsubmit="return Vaildate()" name="form">
+			<form role="form" class="form-horizontal" action="" method="post" onsubmit="return LoginVaildate()" name="form">
 				<div class="form-group">
 					<label for="id">Id:</label>
 				    <input type="text" class="form-control" id="id" placeholder="UserId" name="username" value="<?php echo 
@@ -196,7 +250,7 @@
 					        <h4 class="modal-title">註冊新帳號</h4>
 					    </div>
 					    <div class="modal-body loginForm">
-					    	<form action="register.php" method="post" class="form-horizontal" name="registerForm" onsubmit="return Vaildate()">
+					    	<form action="register.php" method="post" class="form-horizontal" name="registerForm" onsubmit="return registerVaildate()">
 					    		<div class="form-group">
 									<label for="myRegisterId">Id:</label>
 								    <input type="text" class="form-control" id="myRegisterId" placeholder="UserId" name="newusername">

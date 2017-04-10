@@ -11,7 +11,7 @@
 	}
 	if ($newusername!=""&&$newpassword!="") 
 	{
-		$db = mysqli_connect("localhost","root","A12345678");
+		$db = mysqli_connect("localhost","root","");
 		mysqli_select_db($db,"alentest");
 		$sql = "SELECT * FROM login WHERE username ='$newusername'";
 		$rows = mysqli_query($db,$sql);

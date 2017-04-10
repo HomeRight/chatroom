@@ -1,7 +1,7 @@
 <?php
 	
 	session_start();
-	$username = "" ;
+	$username = "" ;$msg="";
 	$file = "message2.html";
 	if (isset($_GET["username"])) 
 	{
