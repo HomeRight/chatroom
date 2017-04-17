@@ -18,7 +18,8 @@
 		$rows = mysqli_query($db,$sql) ;
 		if (mysqli_fetch_row($rows)) 
 		{
-			header("location:success.php?username=".$username) ;
+			$_SESSION['username'] = $username  ;
+			header("location:success.php") ;
 		}
 		else
 		{
@@ -181,40 +182,81 @@
 				alert('值不能為中文');
 				return false ;
 			}
-			else
-			{
-				return true ;
-			}
 		}
+		return true ;
 	}
 	//id不能為特殊字元
 	function IsNotSpecialChar(InputValue)
 	{
-		var check = contain(InputValue,"@!#$%^&*()_+<,>.?/:;\"\'{}[]\\");
-		// console.log(check);
-		if(!check) 
-			return false;
-		else
-			return true ; 
-		function contain(InputValue,str)
+		// var check = contain(InputValue,"@!#$%^&*()_+<,>.?/:;\"\'{}[]\\ ");
+		// // console.log(check);
+		// if(!check) 
+		// 	return false;
+		// else
+		// 	return true ; 
+		// function contain(InputValue,str)
+		// {
+		// 	// console.log(InputValue.indexOf(str.charAt(2)));
+		// 	// console.log(str.charAt(2));
+		// 	for(var i=0;i<str.length;i++)
+		// 	{
+		// 		if (InputValue.indexOf(str.charAt(i))>=0)
+		// 		{
+		// 			alert('不能為特殊字元');
+		// 			// console.log(InputValue.indexOf(str.charAt(i)))
+		// 			return false ;
+		// 			break;
+		// 			// alert(IdValue.indexOf(str.charAt(i)));
+		// 		}
+
+		// 	}
+		// 	return true ;
+
+		// }
+		for (var i = 0 ,len= InputValue.length; i < len; i++) 
 		{
-			// console.log(InputValue.indexOf(str.charAt(2)));
-			// console.log(str.charAt(2));
-			for(var i=0;i<str.length;i++)
+			switch(InputValue.charAt(i))
 			{
-				if (InputValue.indexOf(str.charAt(i))>=0)
-				{
-					alert('不能為特殊字元');
-					// console.log(InputValue.indexOf(str.charAt(i)))
+				case '!' :
+				case '@' :
+				case '#' :
+				case '$' :
+				case '%' :
+				case '^' :
+				case '&' :
+				case '*' :
+				case '(' :
+				case ')' :
+				case '_' :
+				case '-' :
+				case '+' :
+				case '=' :
+				case '{' :
+				case '}' :
+				case '[' :
+				case ']' :
+				case '\"' :
+				case '\'' :
+				case ';' :
+				case ':' :
+				case '<' :
+				case '>' :
+				case ',' :
+				case '.' :
+				case '?' :
+				case '/' :
+				case '\\' :
+				case ' ':
+					alert('不能為特殊字元') ;
 					return false ;
-					break;
-					// alert(IdValue.indexOf(str.charAt(i)));
-				}
+					break ;
+				default :
+					break ;
 
-			}
-			return true ;
-
+ 			}
+ 			 
 		}
+		return true ;
 	}
 	</script>
 </head>

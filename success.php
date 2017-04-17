@@ -3,33 +3,34 @@
 	session_start();
 	$username = "" ;$msg="";
 	$file = "message2.html";
-	if (isset($_GET["username"])) 
+	if (isset($_SESSION['username'])) 
 	{
-		$username = $_GET["username"];	
+		$username  = $_SESSION["username"]  ;
+		$msg .="<p>使用者:". $username  ."登入</p>" ;
+		$fp = fopen($file, "a+");
+		fwrite($fp, $msg);
+		fclose($fp); 	
+	}
+	else
+	{
+		header("location:login.php") ;
 	}
 
-	if ($username!="") 
-	{
-		if ($username == "logout") 
-		{	
-			$name = $_SESSION["username"];
-			$msg .="<p>使用者:". $name ."登出</p>" ;
-			$fp = fopen($file, "a+");
-			fwrite($fp, $msg);
-			fclose($fp);
-			session_destroy();
-			header("location:login.php"); 
-		}
-		if (!isset($_SESSION["username"])) 
-		{	
-			$_SESSION["username"] = $username ;
-			$msg .="<p>使用者:". $username  ."登入</p>" ;
-			$fp = fopen($file, "a+");
-			fwrite($fp, $msg);
-			fclose($fp); 		
-		}
+	// if ($username!="") 
+	// {
+	// 	if ($username == "logout") 
+	// 	{	
+	// 		$name = $_SESSION["username"];
+	// 		$msg .="<p>使用者:". $name ."登出</p>" ;
+	// 		$fp = fopen($file, "a+");
+	// 		fwrite($fp, $msg);
+	// 		fclose($fp);
+	// 		session_destroy();
+	// 		header("location:login.php"); 
+	// 	}
+		
 
-	}
+	// }
 	
 
 	
@@ -100,7 +101,7 @@
 	
 	<div id="chattitle">
 		<p>歡迎使用者:<?php echo $username?></p>
-		<a href="success.php?username=logout">登出</a>
+		<a href="logout.php">登出</a>
 	</div>
 
 	<div id="chatwindow">
