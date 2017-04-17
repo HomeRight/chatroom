@@ -1,32 +1,40 @@
 <?php
 	session_start();
 	$username = "";$password ="" ; $msg = "";
-	if (isset($_POST["username"])) 
+	if (!isset($_SESSION['username'])) 
 	{
-		$username = $_POST["username"];
-	}
-	if (isset($_POST["password"])) 
-	{
-		$password = $_POST["password"];
-	}
-	if ($username!=""&&$password!="") 
-	{
-		$db = mysqli_connect("localhost","root","");
-		mysqli_select_db($db,"alentest");
-		$sql = "SELECT * FROM login WHERE username ='$username' AND 
-				password = '$password'" ;
-		$rows = mysqli_query($db,$sql) ;
-		if (mysqli_fetch_row($rows)) 
+		if (isset($_POST["username"])) 
 		{
-			$_SESSION['username'] = $username  ;
-			header("location:success.php") ;
+			$username = $_POST["username"];
 		}
-		else
+		if (isset($_POST["password"])) 
 		{
-			$msg .= "帳號密碼輸入錯誤" ;
+			$password = $_POST["password"];
 		}
+		if ($username!=""&&$password!="") 
+		{
+			$db = mysqli_connect("localhost","root","");
+			mysqli_select_db($db,"alentest");
+			$sql = "SELECT * FROM login WHERE username ='$username' AND 
+					password = '$password'" ;
+			$rows = mysqli_query($db,$sql) ;
+			if (mysqli_fetch_row($rows)) 
+			{
+				$_SESSION['username'] = $username  ;
+				header("location:success.php") ;
+			}
+			else
+			{
+				$msg .= "帳號密碼輸入錯誤" ;
+			}
 
+		}
 	}
+	else
+	{
+		echo '<meta http-equiv=REFRESH CONTENT=0.5;url=logout.php>';
+	}
+	
 
 	
 ?>
